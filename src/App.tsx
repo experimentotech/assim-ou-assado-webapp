@@ -29,6 +29,12 @@ interface ComparisonRow {
   isSelected: boolean;
 }
 
+declare global {
+  interface Window {
+    ALIMENTOS?: Alimento[];
+  }
+}
+
 // ============================================================================
 // SERVICES
 // ============================================================================
@@ -369,17 +375,8 @@ const App: React.FC = () => {
   
   // Mock data for demonstration
   useEffect(() => {
-    const mockAlimentos: Alimento[] = [
-      { id: 1, nome: 'Filé de frango grelhado', kcal: 165, prot: 31, carb: 0, lip: 3.6, classif: 'P' },
-      { id: 2, nome: 'Filé de peixe grelhado', kcal: 120, prot: 26, carb: 0, lip: 1.5, classif: 'P' },
-      { id: 3, nome: 'Filé mignon', kcal: 190, prot: 29, carb: 0, lip: 7.5, classif: 'P' },
-      { id: 4, nome: 'Arroz branco cozido', kcal: 128, prot: 2.7, carb: 28, lip: 0.3, classif: 'C' },
-      { id: 5, nome: 'Batata doce cozida', kcal: 76, prot: 1.4, carb: 18, lip: 0.1, classif: 'C' },
-      { id: 6, nome: 'Azeite de oliva', kcal: 884, prot: 0, carb: 0, lip: 100, classif: 'L' }
-    ];
-    
     new Promise<void>((resolve) => {
-      setSearchableAlimentos(prepareSearchableList(mockAlimentos));
+      setSearchableAlimentos(prepareSearchableList(window.ALIMENTOS || []));
       resolve();
     });
   }, []);
