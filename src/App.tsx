@@ -26,6 +26,7 @@ interface ComparisonRow {
   fromValue: number;
   toValue: number;
   isSelected: boolean;
+  suffix: string;
 }
 
 declare global {
@@ -242,7 +243,7 @@ const ComparisonTable: React.FC<{ rows: ComparisonRow[] }> = ({ rows }) => (
         <div className={`flex-1 border-b-2 border-dotted min-w-0 ${
           row.isSelected ? 'border-gray-500' : 'border-black'
         }`}></div>
-        <div className="text-right w-16 flex-shrink-0">{row.fromValue}</div>
+        <div className="text-right w-16 flex-shrink-0">{row.fromValue}{row.suffix}</div>
         <div className="flex items-center flex-shrink-0">
           <div className={`border-b-2 border-dotted w-4 ${
             row.isSelected ? 'border-gray-500' : 'border-black'
@@ -250,7 +251,7 @@ const ComparisonTable: React.FC<{ rows: ComparisonRow[] }> = ({ rows }) => (
           <ChevronRight className="w-4 h-4" />
         </div>
         <div className="text-left w-32 flex-shrink-0">
-          {row.toValue}
+          {row.toValue}{row.suffix}
           {!row.isSelected && row.toValue !== row.fromValue && (
             <sup className="ml-1">
               <strong>
@@ -440,31 +441,36 @@ const App: React.FC = () => {
         label: 'Gr',
         fromValue: Math.round(fromNutrition.weight),
         toValue: Math.round(toNutrition.weight),
-        isSelected: false
+        isSelected: false,
+        suffix: 'g'
       },
       {
         label: 'Kcal',
         fromValue: Math.round(fromNutrition.kcal),
         toValue: Math.round(toNutrition.kcal),
-        isSelected: false
+        isSelected: false,
+        suffix: ''
       },
       {
         label: 'Prot',
         fromValue: parseFloat(fromNutrition.prot.toFixed(1)),
         toValue: parseFloat(toNutrition.prot.toFixed(1)),
-        isSelected: fromFood.classif === 'P'
+        isSelected: fromFood.classif === 'P',
+        suffix: 'g'
       },
       {
         label: 'Carb',
         fromValue: parseFloat(fromNutrition.carb.toFixed(1)),
         toValue: parseFloat(toNutrition.carb.toFixed(1)),
-        isSelected: fromFood.classif === 'C'
+        isSelected: fromFood.classif === 'C',
+        suffix: 'g'
       },
       {
         label: 'Gord',
         fromValue: parseFloat(fromNutrition.gord.toFixed(1)),
         toValue: parseFloat(toNutrition.gord.toFixed(1)),
-        isSelected: fromFood.classif === 'L'
+        isSelected: fromFood.classif === 'L',
+        suffix: 'g'
       }
     ];
   }, [fromFood, toFood, fromQuantity, toQuantity]);
