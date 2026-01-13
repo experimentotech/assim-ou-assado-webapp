@@ -11,7 +11,6 @@ type AlimentoClassif = 'P' | 'C' | 'L';
 interface Alimento {
   id: number;
   nome: string;
-  kcal: number;
   prot: number;
   carb: number;
   lip: number;
@@ -99,9 +98,10 @@ const calculateDestinationQuantity = (
  */
 const calculateNutrition = (food: Alimento, quantity: number) => {
   const multiplier = quantity / 100;
+  const kcal = food.prot * 4 + food.carb * 4 + food.lip * 9;
   return {
     weight: quantity,
-    kcal: food.kcal * multiplier,
+    kcal: kcal * multiplier,
     prot: food.prot * multiplier,
     carb: food.carb * multiplier,
     gord: food.lip * multiplier
