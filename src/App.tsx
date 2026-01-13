@@ -86,11 +86,12 @@ const calculateDestinationQuantity = (
   toFood: Alimento,
   fromQuantity: number
 ): number => {
-  const fromPer100g = fromFood[fromFood.classif === 'P' ? 'prot' : fromFood.classif === 'C' ? 'carb' : 'lip'];
-  const toPer100g = toFood[fromFood.classif === 'P' ? 'prot' : fromFood.classif === 'C' ? 'carb' : 'lip'];
+  const attr = fromFood.classif === 'P' ? 'prot' : fromFood.classif === 'C' ? 'carb' : 'lip';
+  const fromPer100g = fromFood[attr];
+  const toPer100g = toFood[attr];
   
   const fromTotal = (fromPer100g * fromQuantity) / 100;
-  return (100 * fromTotal) / toPer100g;
+  return Math.round((100 * fromTotal) / toPer100g);
 };
 
 /**
@@ -394,7 +395,7 @@ const App: React.FC = () => {
     const calculatedQty = calculateDestinationQuantity(fromFood, toFood, qty);
 
     new Promise<void>((resolve) => {
-      setToQuantity(calculatedQty.toFixed(1));
+      setToQuantity(calculatedQty.toFixed(0));
       resolve();
     });
   }, [fromFood, toFood, fromQuantity]);
