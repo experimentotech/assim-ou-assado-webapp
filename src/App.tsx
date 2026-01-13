@@ -529,7 +529,7 @@ const App: React.FC = () => {
             
             <div className="flex items-center justify-center py-4">
               <div className="flex-1 border-t border-gray-300"></div>
-              <div className="mx-4 p-2 bg-white rounded-full">
+              <div className="p-2 bg-white rounded-full border-gray-300 border-solid border-2">
                 <Logo />
               </div>
               <div className="flex-1 border-t border-gray-300"></div>
